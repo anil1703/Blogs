@@ -1,0 +1,29 @@
+.auth-home{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 90vh;
+}
+
+.auth-image{
+    height: 400px;
+}
+
+.auth-text-content{
+    text-align: center;
+    width: 500px;
+}
+
+.auth-buttons-div{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.auth-buttons-div button{
+    height: 40px;
+    border: none;
+    background-color: #6EB8EF;
+    border-radius: 8px;
+    width: 100px;
+    color: black;
+}
