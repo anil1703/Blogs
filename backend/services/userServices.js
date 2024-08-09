@@ -5,7 +5,13 @@ import bcrypt from "bcrypt";
 
 
 export async function creatingUser(userData) {
-    const userDataArray = [];
+    const email = userData.email
+    const isCheckingEmail = await users_signup.findOne({email:email})
+    if(isCheckingEmail) {
+        return { status: 400, message: "Email already exists" }
+    }
+    else{
+        const userDataArray = [];
     
     const hashedPassword = await bcrypt.hash(userData.set_password, 10);
     userData.set_password = hashedPassword;
@@ -14,19 +20,22 @@ export async function creatingUser(userData) {
 
     const response = await users_signup.insertMany(userDataArray);
 
-    return response;
+     return { status: 200, message: "Congratulations Registred Sucessfully" };
+    }
+
+    
 }
 export async function loginUser(userData) {
     const response = await users_signup.findOne({email:userData.email})
 
     if(!response){
-        return {status:401,message:"User doestn't exists"}
+        return {status:400,message:"User doestn't exists"}
     }
 
     const checkingPassword = await bcrypt.compare(userData.password,response.set_password)
 
     if(!checkingPassword){
-        return {status:401,message:"Password is incorrect"}
+        return {status:400,message:"Password is incorrect"}
     }
 
     const setPayLoad = {

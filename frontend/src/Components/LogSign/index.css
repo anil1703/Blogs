@@ -2,7 +2,20 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 90vh;
+    height: 100vh;
+}
+
+@media (max-width:768px) {
+    .auth-home{
+        flex-direction: column;
+        padding: 20px;
+    }
+    .auth-text-content{
+        width: 300px;
+    }
+    .auth-image{
+        height: 120px;
+    }
 }
 
 .auth-image{
@@ -25,5 +38,19 @@
     background-color: #6EB8EF;
     border-radius: 8px;
     width: 100px;
-    color: black;
+    color: white;
+}
+
+@media (max-width:768px) {
+    .auth-home{
+        flex-direction: column;
+        padding: 20px;
+        justify-content: center;
+    }
+    .auth-text-content{
+        width: 300px;
+    }
+    .auth-image{
+        height: 220px;
+    }
 }

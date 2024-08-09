@@ -6,7 +6,7 @@ export async function creatingUserHandler(req,res){
 
     try{
         const fetching  = await creatingUser(userData);
-        res.status(200).send("Congratulations Registered Sucessfully.");
+        res.status(fetching.status).send(fetching.message);
     }
     catch(err){
         res.status(400).json(err);
@@ -19,11 +19,11 @@ export async function loginUserController(req,res){
     const userData = req.body;
     try{
         const fetching = await loginUser(userData);
-        res.status(200).send(fetching.message);
-        console.log(fetching.message.jwt_token)
+        res.status(fetching.status).send(fetching.message);
+      
     }
     catch(err){
-        res.status(fetching.status).send(fetching.message)
+        res.status(err.status).send(err.message)
     }
 
 }   
