@@ -1,15 +1,18 @@
-import { Route, BrowserRouter, Routes } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import LogSign from './Components/LogSign';
-import Home from "./Components/Home"
+import Home from "./Components/Home";
+import CheckingToken from "./Components/checkingToken";
 import './App.css';
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route exact path="/login" element={<LogSign />} />
-        <Route exact path="/" element={<Home />} />
-      </Routes>
+      <Switch>
+        <Route path="/login" component={LogSign} />
+        <CheckingToken
+          path="/" component={Home} />
+    
+      </Switch>
     </BrowserRouter>
   );
 }

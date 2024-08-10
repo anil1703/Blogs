@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import authenticationImage from "../assests/Authentication.png";
 import "./index.css";
+import {withRouter} from "react-router-dom"
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
@@ -17,6 +18,19 @@ class LogSign extends Component {
     gender: "",
     intrests: "",
   };
+
+  componentDidMount(){
+    this.tokenChecking();
+  }
+
+  tokenChecking = () => {
+    const token = Cookies.get('jwt_token');
+    console.log(this.props)
+    if (token!==undefined) {
+      this.props.history.push('/');
+      }
+    
+  }
 
 
   siginingUp = () => {
@@ -265,4 +279,4 @@ class LogSign extends Component {
   }
 }
 
-export default LogSign;
+export default withRouter(LogSign);

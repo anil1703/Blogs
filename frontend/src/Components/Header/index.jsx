@@ -9,7 +9,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function Header() {
   return (
-    <Navbar style={{backgroundColor:"#758694"}} expand="lg" className="bg-body-tertiary">
+    <Navbar style={{backgroundColor:"#758694",color:"white"}} expand="lg" className="bg-body-primary">
       <Container fluid>
         <Navbar.Brand href="#">Blog Website</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -42,7 +42,7 @@ function Header() {
               className="me-2"
               aria-label="Search"
             />
-            <Button variant="outline-success">Search</Button>
+            <Button style={{backgroundColor:"#6EB8EF"}} variant="outline-dark">Search</Button>
           </Form>
         </Navbar.Collapse>
       </Container>
