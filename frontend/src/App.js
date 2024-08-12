@@ -8,10 +8,8 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/login" component={LogSign} />
-        <CheckingToken
-          path="/" component={Home} />
-    
+        <Route exact path="/login" component={LogSign} />
+        <CheckingToken exact path="/" component={Home} />
       </Switch>
     </BrowserRouter>
   );

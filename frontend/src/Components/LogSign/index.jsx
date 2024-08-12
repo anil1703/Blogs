@@ -8,6 +8,7 @@ import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 import Cookies from "js-cookie"
 
+
 class LogSign extends Component {
   state = {
     showSignup: false,
@@ -25,7 +26,7 @@ class LogSign extends Component {
 
   tokenChecking = () => {
     const token = Cookies.get('jwt_token');
-    console.log(this.props)
+    console.log("hii",this.props)
     if (token!==undefined) {
       this.props.history.push('/');
       }
@@ -70,10 +71,13 @@ class LogSign extends Component {
     }
     axios.post("http://localhost:5000/login",data)
     .then((response) => {
-      console.log(response)
+      const {history} = this.props
       Cookies.set("jwt_token",response.data.jwt_token,{expires:30})
       Cookies.set("name",response.data.name,{expires:30})
       Cookies.set("email",response.data.email,{expires:30})
+      console.log("Bye",this.props)
+      history.replace("/")
+
     })
     .catch((err) => {
       alert(err.response.data)
