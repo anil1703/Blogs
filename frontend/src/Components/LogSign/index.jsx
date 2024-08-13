@@ -63,6 +63,15 @@ class LogSign extends Component {
     })
   }
 
+  sucessfulLogin = (response) => {
+    Cookies.set("jwt_token",response.data.jwt_token,{expires:30})
+      Cookies.set("name",response.data.name,{expires:30})
+      Cookies.set("email",response.data.email,{expires:30})
+      console.log("Bye",this.props)
+      const {history} = this.props
+      history.replace("/")
+      window.location.reload();
+  }
 
   loginging = () => {
     const data = {
@@ -71,12 +80,10 @@ class LogSign extends Component {
     }
     axios.post("http://localhost:5000/login",data)
     .then((response) => {
-      const {history} = this.props
-      Cookies.set("jwt_token",response.data.jwt_token,{expires:30})
-      Cookies.set("name",response.data.name,{expires:30})
-      Cookies.set("email",response.data.email,{expires:30})
-      console.log("Bye",this.props)
-      history.replace("/")
+      
+      this.sucessfulLogin(response)
+      
+      
 
     })
     .catch((err) => {
