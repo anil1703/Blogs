@@ -6,3 +6,8 @@ export async function creatingBlog(userData){
     const response = await blogs.insertMany(array)
     return response
 }
+
+export async function retrivingAllBlogsFromDatabase(){
+    const response = await blogs.find()
+    return response
+}

@@ -1,4 +1,5 @@
-import {creatingBlog} from "../services/blogServices.js"
+import {creatingBlog,retrivingAllBlogsFromDatabase} from "../services/blogServices.js"
+
 
 export async function creatingBlogHandler (req,res){
     const userData = req.body;
@@ -11,4 +12,14 @@ export async function creatingBlogHandler (req,res){
         console.log("There is a Problem while creating the blog")
         }
 
+}
+
+export async function retrivingAllBlogs (req,res){
+    try{
+        const fetching = await retrivingAllBlogsFromDatabase();
+        res.status(200).json(fetching);
+    }
+    catch(err){
+        res.status(500).send("There is a problem while fetching the blogs");
+    }
 }
