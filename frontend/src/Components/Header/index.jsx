@@ -6,8 +6,20 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import Cookies from "js-cookie"
+import React, { useEffect,useState } from "react";
 
 function Header() {
+
+  
+
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    const userName = Cookies.get('name');
+    setUsername(userName);
+  }, []);
+
   return (
     <Navbar style={{backgroundColor:"#758694",color:"white"}} expand="lg" className="bg-body-primary">
       <Container fluid>
@@ -43,6 +55,8 @@ function Header() {
               aria-label="Search"
             />
             <Button style={{backgroundColor:"#6EB8EF"}} variant="outline-dark">Search</Button>
+             <p>{username}</p>
+             <Button style={{backgroundColor:"#6EB8EF"}}>Logout</Button>
           </Form>
         </Navbar.Collapse>
       </Container>
