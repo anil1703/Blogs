@@ -1,67 +1,45 @@
-import "./index.css"
+import "./index.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Cookies from "js-cookie"
-import React, { useEffect,useState } from "react";
+import Cookies from "js-cookie";
+import { withRouter } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
-function Header() {
-
-  
+function Header(props) { 
 
   const [username, setUsername] = useState('');
-
+ 
   useEffect(() => {
     const userName = Cookies.get('name');
     setUsername(userName);
   }, []);
 
+  const logingOut = () => {
+    Cookies.remove('name');
+    Cookies.remove("jwt_token");
+    Cookies.remove("email");
+    const { history } = props; 
+    history.replace('/login');
+    window.location.reload();
+  }
+
   return (
-    <Navbar style={{backgroundColor:"#758694",color:"white"}} expand="lg" className="bg-body-primary">
-      <Container fluid>
-        <Navbar.Brand href="#">Blog Website</Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbarScroll" />
-        <Navbar.Collapse id="navbarScroll">
-          <Nav
-            className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: '100px' }}
-            navbarScroll
-          >
-            <Nav.Link href="#action1">Home</Nav.Link>
-            <Nav.Link href="#action2">Link</Nav.Link>
-            <NavDropdown title="Link" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action5">
-                Something else here
-              </NavDropdown.Item>
-            </NavDropdown>
-            <Nav.Link href="#" disabled>
-              Link
-            </Nav.Link>
-          </Nav>
-          <Form className="d-flex">
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button style={{backgroundColor:"#6EB8EF"}} variant="outline-dark">Search</Button>
-             <p>{username}</p>
-             <Button style={{backgroundColor:"#6EB8EF"}}>Logout</Button>
-          </Form>
+    <Navbar style={{ backgroundColor: "#6B728E", color: "white" }} className="bg-body-dark">
+      <Container>
+        <Navbar.Brand style={{ color: "white", fontWeight: "bold", fontSize: "30px" }} href="#home">Blogs</Navbar.Brand>
+        <Navbar.Toggle />
+        <Navbar.Collapse className="justify-content-end">
+          <Navbar.Text style={{ color: "white" }}>
+            Signed in as: <a style={{ color: "white", textDecoration: "none" }} href="#login">{username}</a>
+          </Navbar.Text>
+          <button onClick={logingOut} className="logOutButn">
+            Logout
+          </button>
         </Navbar.Collapse>
       </Container>
     </Navbar>
   );
 }
 
-export default Header;
+export default withRouter(Header);

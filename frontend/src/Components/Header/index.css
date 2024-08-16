@@ -1,0 +1,9 @@
+.logOutButn{
+    height: 35px;
+    width: 80px;
+    color: white;
+    background-color:#6EB8EF;
+    border: none;
+    border-radius: 6px;
+    margin-left: 20px;
+}

@@ -1,4 +1,4 @@
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route,Router } from "react-router-dom";
 import LogSign from './Components/LogSign';
 import Home from "./Components/Home";
 import CheckingToken from "./Components/checkingToken";
@@ -10,6 +10,7 @@ function App() {
       <Switch>
         <Route exact path="/login" component={LogSign} />
         <CheckingToken exact path="/" component={Home} />
+        
       </Switch>
     </BrowserRouter>
   );
