@@ -1,0 +1,26 @@
+.home-margin-setup{
+   
+    width: 83%;
+    min-height: 90vh;
+    margin: auto;
+}
+@media (max-width:768px) {
+    .home-margin-setup{
+        width: 100%;
+        padding: 10px;
+    }
+}
+
+.welcome-banner{
+height: 300px;
+display: flex;
+justify-content: space-around;
+align-items: center;
+
+}
+@media (max-width:768px) {
+    .welcome-banner{
+        height: auto;
+        flex-direction: column;
+    }
+}

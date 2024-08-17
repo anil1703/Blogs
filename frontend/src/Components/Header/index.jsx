@@ -19,6 +19,7 @@ function Header(props) {
     Cookies.remove('name');
     Cookies.remove("jwt_token");
     Cookies.remove("email");
+    Cookies.remove("intrest");
     const { history } = props; 
     history.replace('/login');
     window.location.reload();
