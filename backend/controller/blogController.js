@@ -1,4 +1,4 @@
-import {creatingBlog,retrivingAllBlogsFromDatabase} from "../services/blogServices.js"
+import {creatingBlog,retrivingAllBlogsFromDatabase,retrivingBlogsByInterstsFromDatabase} from "../services/blogServices.js"
 
 
 export async function creatingBlogHandler (req,res){
@@ -21,5 +21,17 @@ export async function retrivingAllBlogs (req,res){
     }
     catch(err){
         res.status(500).send("There is a problem while fetching the blogs");
+    }
+}
+
+export async function retrivingBlogsByIntersts(req,res){
+    const intrests = req.body;
+    console.log("orey",intrests);
+    try{
+        const fetching = await retrivingBlogsByInterstsFromDatabase(intrests);
+        res.status(200).json(fetching);
+    }
+    catch(error){
+        res.status(500).send("There is a problem while fetching the Intrests blogs");
     }
 }

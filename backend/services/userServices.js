@@ -49,5 +49,7 @@ export async function loginUser(userData) {
     return {status:200,message:{
         jwt_token:jwtToken,
         name:response.name,
-        email:response.email} }
+        email:response.email,
+        intrest:response.intrests
+    } }
 }
