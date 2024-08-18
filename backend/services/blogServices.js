@@ -13,8 +13,9 @@ export async function retrivingAllBlogsFromDatabase(){
 }
 
 export async function retrivingBlogsByInterstsFromDatabase(intrests){
-    const response = await blogs.find({intrests: {$in:intrests}})
-    console.log("hhi",response)
+   
+    const response = await blogs.find({tag: {$in:intrests}})
+    
     return response
     
 }

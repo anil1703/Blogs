@@ -25,8 +25,7 @@ export async function retrivingAllBlogs (req,res){
 }
 
 export async function retrivingBlogsByIntersts(req,res){
-    const intrests = req.body;
-    console.log("orey",intrests);
+    const intrests = req.body.intrests;
     try{
         const fetching = await retrivingBlogsByInterstsFromDatabase(intrests);
         res.status(200).json(fetching);

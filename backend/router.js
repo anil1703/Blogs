@@ -12,7 +12,7 @@ router.post("/login",loginUserController)
 import {creatingBlogHandler} from "./controller/blogController.js"
 router.post("/blog",creatingBlogHandler);
 router.get("/allBlogs",retrivingAllBlogs);
-router.get("/myIntrestsBlogs",retrivingBlogsByIntersts);
+router.post("/myIntrestsBlogs",retrivingBlogsByIntersts);
 
 
 export {router as routes}
