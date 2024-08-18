@@ -15,7 +15,7 @@ const renderStatus = {
 
 class Home extends Component {
   state = {
-    renderStatus: renderStatus.initial,
+    status: renderStatus.initial,
     name: "",
     email: "",
     intrests: [],
@@ -27,7 +27,7 @@ class Home extends Component {
   }
 
   gettingDetails = () => {
-    this.setState({ renderStatus: renderStatus.loading });
+    this.setState({ status: renderStatus.loading });
 
     const name = Cookies.get("name");
     const email = Cookies.get("email");
@@ -35,24 +35,24 @@ class Home extends Component {
 
     if (name && email && intrestsString) {
       const intrests = intrestsString.split(',').map(item => item.trim());
-      this.setState({ name, email, intrests, renderStatus: renderStatus.success }, this.fetchBlogsData);
+      this.setState({ name, email, intrests }, this.fetchBlogsData);
     } else {
-      this.setState({ renderStatus: renderStatus.error });
+      this.setState({ status: renderStatus.error });
     }
   };
 
-  fetchBlogsData = () => {
-    const { intrests } = this.state;
-    console.log("Ani",intrests)
-    console.log(intrests)
-    axios.get("http://localhost:5000/myIntrestsBlogs",intrests)
-      .then(response => {
-        this.setState({ blogsData: response.data });
-      })
-      .catch(error => {
-        console.error(error);
-        this.setState({ renderStatus: renderStatus.error });
-      });
+  fetchBlogsData = async () => {
+    try {
+      const { intrests } = this.state;
+      const response = await axios.post("http://localhost:5000/myIntrestsBlogs", { intrests });
+
+      // Update the state with the fetched data and set render status to success
+      this.setState({ blogsData: response.data, status: renderStatus.success });
+
+    } catch (error) {
+      console.error("Error fetching blogs:", error);
+      this.setState({ status: renderStatus.error });
+    }
   };
 
   loadingModule = () => (
@@ -61,12 +61,16 @@ class Home extends Component {
     </div>
   );
 
-  successModule = () => (
-    <div className="welcome-banner">
-      <h1>Welcome {this.state.name}!</h1>
-      <img style={{ height: "300px" }} src={undraw_Super_thank_you_re_f8bo} alt="Welcome Image" />
-    </div>
-  );
+  successModule = () => {
+    const { blogsData, name } = this.state;
+
+    return (
+      <div className="welcome-banner">
+        <h1>Welcome {name}!</h1>
+        <img style={{ height: "300px" }} src={undraw_Super_thank_you_re_f8bo} alt="Welcome" />
+      </div>
+    );
+  };
 
   errorModule = () => (
     <div className="error-container">
@@ -75,15 +79,16 @@ class Home extends Component {
   );
 
   render() {
-    const { renderStatus } = this.state;
+    const { status } = this.state;
+    console.log("re", status)
 
     return (
       <>
         <Header />
         <div className="home-margin-setup">
-          {renderStatus === renderStatus.loading && this.loadingModule()}
-          {renderStatus === renderStatus.success && this.successModule()}
-          {renderStatus === renderStatus.error && this.errorModule()}
+          {status === renderStatus.loading && this.loadingModule()}
+          {status === renderStatus.success && this.successModule()}
+          {status === renderStatus.error && this.errorModule()}
         </div>
       </>
     );
