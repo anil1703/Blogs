@@ -11,15 +11,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Header(props) {
   const [username, setUsername] = useState('');
-  const [dropdownText, setDropdownText] = useState('');
-  const { changeToBlogsBy } = useContext(ReactContext);
+  const { isAllBlogs, changeToBlogsBy } = useContext(ReactContext);
 
   useEffect(() => {
     const userName = Cookies.get('name');
     setUsername(userName);
-    const cookieValue = Cookies.get('isAllBlogs');
-    setDropdownText(cookieValue === 'true' ? 'All Blogs' : 'Interest Blogs');
   }, []);
+
+  useEffect(() => {
+    // Update the dropdown text based on the isAllBlogs context
+    Cookies.set('isAllBlogs', isAllBlogs.toString());
+  }, [isAllBlogs]);
 
   const logingOut = () => {
     Cookies.remove('name');
@@ -31,9 +33,7 @@ function Header(props) {
     window.location.reload();
   };
 
-  const handleDropdownChange = (e) => {
-    const value = e.target.value;
-    Cookies.set('isAllBlogs', value);
+  const handleDropdownChange = (value) => {
     changeToBlogsBy(value === 'true');
     window.location.reload();
   };
@@ -52,9 +52,14 @@ function Header(props) {
             <Navbar.Text style={{ color: "white" }}>
               Signed in as: <a style={{ color: "white", textDecoration: "none" }} href="#login">{username}</a>
             </Navbar.Text>
-            <NavDropdown title={dropdownText} id="collapsible-nav-dropdown" style={{ color: "white" }}>
-              <NavDropdown.Item value="false" eventKey="myInterestBlogs">My Interest Blogs</NavDropdown.Item>
-              <NavDropdown.Item value="true" eventKey="allBlogs">All Blogs</NavDropdown.Item>
+            <NavDropdown
+              title={isAllBlogs ? 'All Blogs' : 'Interest Blogs'}
+              id="collapsible-nav-dropdown"
+              style={{ color: "white" }}
+              onSelect={handleDropdownChange}
+            >
+              <NavDropdown.Item eventKey="false">My Interest Blogs</NavDropdown.Item>
+              <NavDropdown.Item eventKey="true">All Blogs</NavDropdown.Item>
             </NavDropdown>
             <button className="logOutButn" onClick={logingOut} style={{ color: "white" }}>Logout</button>
           </Nav>

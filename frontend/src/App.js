@@ -9,6 +9,7 @@ import './App.css';
 
 const App = () => {
   const { isAllBlogs, changeToBlogsBy } = useContext(ReactContext);
+  console.log(isAllBlogs)
 
   return (
     <BrowserRouter>
