@@ -5,6 +5,7 @@ import { Audio } from 'react-loader-spinner';
 import axios from "axios";
 import undraw_Super_thank_you_re_f8bo from "../assests/undraw_Super_thank_you_re_f8bo.png";
 import "./index.css";
+import ReactContext from "../../ReactContext";
 
 const renderStatus = {
   initial: "INITIAL",
@@ -35,20 +36,34 @@ class Home extends Component {
 
     if (name && email && intrestsString) {
       const intrests = intrestsString.split(',').map(item => item.trim());
-      this.setState({ name, email, intrests }, this.fetchBlogsData);
+      this.setState({ name, email, intrests }, this.fetchBlogsDataBasedOnContext);
     } else {
       this.setState({ status: renderStatus.error });
     }
   };
 
-  fetchBlogsData = async () => {
+  fetchBlogsDataBasedOnContext = () => {
+    this.contextValue = this.context;
+    const { isAllBlogs } = this.contextValue;
+    this.fetchBlogsData(isAllBlogs);
+  };
+
+  fetchBlogsData = async (isAllBlogs) => {
     try {
-      const { intrests } = this.state;
-      const response = await axios.post("http://localhost:5000/myIntrestsBlogs", { intrests });
+      let response;
+      if (isAllBlogs) {
+        // Using GET method for fetching all blogs
+        response = await axios.get("http://localhost:5000/allBlogs");
+      } else {
+        // Using POST method for fetching blogs based on interests
+        const { intrests } = this.state;
+        response = await axios.post("http://localhost:5000/myIntrestsBlogs", { intrests });
+      }
 
-      // Update the state with the fetched data and set render status to success
-      this.setState({ blogsData: response.data, status: renderStatus.success });
-
+      this.setState({
+        blogsData: response.data,
+        status: renderStatus.success,
+      });
     } catch (error) {
       console.error("Error fetching blogs:", error);
       this.setState({ status: renderStatus.error });
@@ -68,6 +83,12 @@ class Home extends Component {
       <div className="welcome-banner">
         <h1>Welcome {name}!</h1>
         <img style={{ height: "300px" }} src={undraw_Super_thank_you_re_f8bo} alt="Welcome" />
+        {blogsData.map((blog, index) => (
+          <div key={index}>
+            <h2>{blog.title}</h2>
+            <p>{blog.content}</p>
+          </div>
+        ))}
       </div>
     );
   };
@@ -80,19 +101,27 @@ class Home extends Component {
 
   render() {
     const { status } = this.state;
-    console.log("re", status)
 
     return (
-      <>
-        <Header />
-        <div className="home-margin-setup">
-          {status === renderStatus.loading && this.loadingModule()}
-          {status === renderStatus.success && this.successModule()}
-          {status === renderStatus.error && this.errorModule()}
-        </div>
-      </>
+      <ReactContext.Consumer>
+        {(value) => {
+          this.contextValue = value;
+          return (
+            <>
+              <Header />
+              <div className="home-margin-setup">
+                {status === renderStatus.loading && this.loadingModule()}
+                {status === renderStatus.success && this.successModule()}
+                {status === renderStatus.error && this.errorModule()}
+              </div>
+            </>
+          );
+        }}
+      </ReactContext.Consumer>
     );
   }
 }
+
+Home.contextType = ReactContext;
 
 export default Home;

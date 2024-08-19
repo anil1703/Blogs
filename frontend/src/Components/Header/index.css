@@ -7,3 +7,9 @@
     border-radius: 6px;
     margin-left: 20px;
 }
+
+@media (max-width:768px) {
+    .logOutButn{
+        margin-left: 0px;
+    }
+}
