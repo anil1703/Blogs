@@ -24,3 +24,94 @@ align-items: center;
         flex-direction: column;
     }
 }
+
+.blogsUl{
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    list-style: none;
+    justify-content: center;
+    margin-left: -15px;
+}
+.blogsLi{
+    width: 310px;
+    border: 1px solid gray;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    position: relative;
+}
+
+
+@media (max-width:768px) {
+    .blogsLi{
+        width: 100%;
+    }
+}
+.blogsHead{
+    background-color: #6EB8EF;
+    padding: 10px;
+    color: white;
+}
+
+.blogsPara{
+    padding: 5px;
+}
+
+
+.blogsViewButton{
+    background-color: #6EB8EF;
+    color: white;
+    height: 35px;
+    width: 70px;
+    border: none;
+    align-self: center;
+    margin-bottom: 10px;
+}
+
+.createBlogButton{
+    border: none;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    color: white;
+    background-color: #FF8A8A;
+}
+
+.inputStyleCreateBlogs{
+    height: 45px;
+    outline: none;
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+.textareaCreateBlog{
+    min-height: 80vh;
+    width: 100%;
+    margin-top: 5px;
+    outline: none;
+}
+
+.createBlodDiv{
+    display: flex;
+    gap: 10px;
+}
+
+.one{
+    width: 50%;
+    min-height: 87vh;
+    
+
+}
+.two{
+    width: 50%;
+    min-height: 87vh;
+    padding: 10px;
+    border-left: 1px solid gray;
+   
+}

@@ -5,17 +5,19 @@ import Home from "./Components/Home";
 import CheckingToken from "./Components/checkingToken";
 import ReactContext from "./ReactContext";
 import Cookies from 'js-cookie';
+import CreateBlog from "./Components/CreateBlog";
 import './App.css';
 
 const App = () => {
   const { isAllBlogs, changeToBlogsBy } = useContext(ReactContext);
-  console.log(isAllBlogs)
+  console.log(isAllBlogs);
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/login" component={LogSign} />
-        <CheckingToken exact path="/" component={Home} />
+        <Route exact path="/" render={() => <CheckingToken component={Home} />} />
+        <Route exact path="/createBlog" render={() => <CheckingToken component={CreateBlog} />} />
       </Switch>
     </BrowserRouter>
   );
