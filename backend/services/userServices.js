@@ -50,6 +50,7 @@ export async function loginUser(userData) {
         jwt_token:jwtToken,
         name:response.name,
         email:response.email,
-        intrest:response.intrests
+        intrest:response.intrests,
+        id:response._id
     } }
 }
