@@ -28,6 +28,8 @@ function Header(props) {
     Cookies.remove("jwt_token");
     Cookies.remove("email");
     Cookies.remove("intrest");
+    Cookies.remove("id");
+    Cookies.remove("isAllBlogs");
     const { history } = props;
     history.replace('/login');
     window.location.reload();

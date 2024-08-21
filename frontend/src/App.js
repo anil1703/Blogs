@@ -6,6 +6,7 @@ import CheckingToken from "./Components/checkingToken";
 import ReactContext from "./ReactContext";
 import Cookies from 'js-cookie';
 import CreateBlog from "./Components/CreateBlog";
+import BlogsById from "./Components/BlogsById";
 import './App.css';
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
         <Route exact path="/login" component={LogSign} />
         <Route exact path="/" render={() => <CheckingToken component={Home} />} />
         <Route exact path="/createBlog" render={() => <CheckingToken component={CreateBlog} />} />
+        <Route exact path="/blog/:id" render={() => <CheckingToken component={BlogsById} />} />
       </Switch>
     </BrowserRouter>
   );

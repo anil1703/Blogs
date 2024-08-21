@@ -67,6 +67,7 @@ class LogSign extends Component {
     Cookies.set("jwt_token",response.data.jwt_token,{expires:30})
       Cookies.set("name",response.data.name,{expires:30})
       Cookies.set("email",response.data.email,{expires:30})
+      Cookies.set("id",response.data.id,{expires:30})
       const convertArrayToSnake = response.data.intrest.map(item => item).join(',');
       console.log(convertArrayToSnake)
       Cookies.set("intrest",convertArrayToSnake,{expires:30})

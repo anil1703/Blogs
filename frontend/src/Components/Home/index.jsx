@@ -8,7 +8,9 @@ import "./index.css";
 import ReactContext from "../../ReactContext";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { Modal, Button } from 'react-bootstrap'; 
+import { FaArrowRight } from "react-icons/fa";
 import Markdown from 'react-markdown'
+import { Link } from 'react-router-dom';
 
 const renderStatus = {
   initial: "INITIAL",
@@ -25,9 +27,11 @@ class Home extends Component {
     email: "",
     intrests: [],
     blogsData: [],
-    showModal: true,  
+    showModal: false,  
     fullscreen: true,
-    body:""
+    title:"",
+    body:"",
+    tag:"",
   };
 
   componentDidMount() {
@@ -82,13 +86,31 @@ class Home extends Component {
   };
 
   handleCloseModal = () => {
-    this.setState({ showModal: false });
+    this.setState({ showModal: false,body:"",title:"",tag:"" });
   };
 
   writingBody = (e) => {
     this.setState({
       body:e.target.value
     })
+  }
+
+  creatingBlog = () => {
+    const { body,title ,tag} = this.state;
+    const createdBy = Cookies.get("id");
+    const description = body;
+    const blogsBucket = {title,tag,description,createdBy}
+    axios.post("http://localhost:5000/blog",blogsBucket)
+    .then((response) => {
+      console.log(response.data);
+      this.gettingDetails()
+      this.setState({showModal:false})
+      })
+      .catch((error) => {
+        console.error(error);
+        });
+
+
   }
 
   loadingModule = () => (
@@ -107,9 +129,9 @@ class Home extends Component {
           <h5>{eachBlog.title}</h5>
             </div>
             <div className="blogsPara">
-            <p>{eachBlog.description}</p>
+            <p>{eachBlog.description.slice(0, 70)}...</p>
             </div>
-            <button className="blogsViewButton">View</button>
+            <Link className="blogsViewButton" to={`blog/${eachBlog._id}`} ><button className="blogsViewButton" >View</button></Link>
         </li>
       )}
       
@@ -144,7 +166,11 @@ const {showModal,fullscreen} = this.state
       {/* Fullscreen Modal */}
       <Modal show={showModal} fullscreen={fullscreen} onHide={this.handleCloseModal}>
         <Modal.Header closeButton>
+          <div style={{display:"flex",justifyContent:"space-between",width:"85vh"}}>
           <Modal.Title>Create a Blog</Modal.Title>
+          <button onClick={this.creatingBlog} className="createButton">Create <FaArrowRight/></button>
+          </div>
+          
         </Modal.Header>
         <Modal.Body>
           <div className="createBlodDiv">
@@ -152,7 +178,15 @@ const {showModal,fullscreen} = this.state
           <div className="one" >
          <div style={{display:"flex",flexDirection:"column"}}>
          <label>TITLE</label>
-         <input className="inputStyleCreateBlogs" type="text"/>
+         <input onChange={(event) => {
+          this.setState({title: event.target.value});
+         }} className="inputStyleCreateBlogs" type="text"/>
+         </div>
+         <div style={{display:"flex",flexDirection:"column"}}>
+         <label>TAG</label>
+         <input placeholder="Blogs comes under..like politics,games,movies" onChange={(event) => {
+          this.setState({tag:event.target.value});
+         }} className="inputStyleCreateBlogs" type="text"/>
          </div>
          <div style={{display:"flex",flexDirection:"column",marginTop:"8px"}}>
           <label>BODY</label>
