@@ -114,7 +114,7 @@ class Home extends Component {
   }
 
   deletingBlog = (id) => {
-      axios.delete(`https://blogs-xmvh.onrender.com/${id}`)
+      axios.delete(`https://blogs-xmvh.onrender.com/deleteBlog/${id}`)
       .then((response) => {
         console.log(response.data);
         alert(response.data)
