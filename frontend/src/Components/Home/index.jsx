@@ -7,7 +7,7 @@ import undraw_Super_thank_you_re_f8bo from "../assests/undraw_Super_thank_you_re
 import "./index.css";
 import ReactContext from "../../ReactContext";
 import { FaExternalLinkAlt } from "react-icons/fa";
-import { Modal, Button } from 'react-bootstrap'; 
+import { Modal } from 'react-bootstrap'; 
 import { FaArrowRight } from "react-icons/fa";
 import Markdown from 'react-markdown'
 import { Link } from 'react-router-dom';
@@ -147,7 +147,7 @@ class Home extends Component {
             </div>
             <div style={{display:"flex",justifyContent:"space-around"}}>
             <Link className="blogsViewButton" to={`blog/${eachBlog._id}`} ><button className="blogsViewButton" >View</button></Link>
-            {retrive==eachBlog.createdBy?(<button className="blogsViewButton" onClick={() => this.deletingBlog(eachBlog._id)}>Delete</button>):null}
+            {retrive==+eachBlog.createdBy?(<button className="blogsViewButton" onClick={() => this.deletingBlog(eachBlog._id)}>Delete</button>):null}
             </div>
         </li>
       )}

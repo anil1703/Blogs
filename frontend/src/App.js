@@ -1,11 +1,10 @@
-import React, { Component, useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import LogSign from './Components/LogSign';
 import Home from "./Components/Home";
 import CheckingToken from "./Components/checkingToken";
 import ReactContext from "./ReactContext";
 import Cookies from 'js-cookie';
-import CreateBlog from "./Components/CreateBlog";
 import BlogsById from "./Components/BlogsById";
 import './App.css';
 
@@ -18,7 +17,6 @@ const App = () => {
       <Switch>
         <Route exact path="/login" component={LogSign} />
         <Route exact path="/" render={() => <CheckingToken component={Home} />} />
-        <Route exact path="/createBlog" render={() => <CheckingToken component={CreateBlog} />} />
         <Route exact path="/blog/:id" render={() => <CheckingToken component={BlogsById} />} />
       </Switch>
     </BrowserRouter>
