@@ -44,7 +44,7 @@ class LogSign extends Component {
 
 
     }
-    axios.post("http://localhost:5000/sign_up",data)
+    axios.post("https://blogs-xmvh.onrender.com/sign_up",data)
     .then((response) => {
       
       
@@ -82,7 +82,7 @@ class LogSign extends Component {
       email: this.state.email,
       password: this.state.password,
     }
-    axios.post("http://localhost:5000/login",data)
+    axios.post("https://blogs-xmvh.onrender.com/login",data)
     .then((response) => {
       
       this.sucessfulLogin(response)

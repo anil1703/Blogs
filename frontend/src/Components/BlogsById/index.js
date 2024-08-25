@@ -23,7 +23,7 @@ class BlogsById extends Component{
         const {params} = match;
         const {id} = params;
 
-        axios.get(`http://localhost:5000/blog/${id}`)
+        axios.get(`https://blogs-xmvh.onrender.com/blog/${id}`)
         .then(response => {
             console.log(response)
             this.setState({renderingStatus:renderStatus.success, blog: response.data})

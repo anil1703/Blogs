@@ -64,11 +64,11 @@ class Home extends Component {
       let response;
       if (isAllBlogs) {
         // Using GET method for fetching all blogs
-        response = await axios.get("http://localhost:5000/allBlogs");
+        response = await axios.get("https://blogs-xmvh.onrender.com/allBlogs");
       } else {
         // Using POST method for fetching blogs based on interests
         const { intrests } = this.state;
-        response = await axios.post("http://localhost:5000/myIntrestsBlogs", { intrests });
+        response = await axios.post("https://blogs-xmvh.onrender.com/myIntrestsBlogs", { intrests });
       }
 
       this.setState({
@@ -100,7 +100,7 @@ class Home extends Component {
     const createdBy = Cookies.get("id");
     const description = body;
     const blogsBucket = {title,tag,description,createdBy}
-    axios.post("http://localhost:5000/blog",blogsBucket)
+    axios.post("https://blogs-xmvh.onrender.com/blog",blogsBucket)
     .then((response) => {
       console.log(response.data);
       this.gettingDetails()
@@ -114,7 +114,7 @@ class Home extends Component {
   }
 
   deletingBlog = (id) => {
-      axios.delete(`http://localhost:5000/deleteBlog/${id}`)
+      axios.delete(`https://blogs-xmvh.onrender.com/${id}`)
       .then((response) => {
         console.log(response.data);
         alert(response.data)
