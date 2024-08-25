@@ -68,7 +68,7 @@ align-items: center;
     border: none;
     align-self: center;
     margin-bottom: 10px;
-    justify-self: flex-end;
+
 }
 
 .createBlogButton{
@@ -124,4 +124,18 @@ align-items: center;
     border-radius: 7px;
     background-color: #6EB8EF;
     color: white;
+}
+
+@media (max-width:768px) {
+    .createBlodDiv{
+        flex-direction: column;
+        padding: 10px;
+    }
+    .one{
+        width: 100%;
+    }
+    .two{
+        border: 1px solid gray;
+        width: 100%;
+    }
 }

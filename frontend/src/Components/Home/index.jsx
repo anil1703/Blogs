@@ -113,6 +113,19 @@ class Home extends Component {
 
   }
 
+  deletingBlog = (id) => {
+      axios.delete(`http://localhost:5000/deleteBlog/${id}`)
+      .then((response) => {
+        console.log(response.data);
+        alert(response.data)
+        this.gettingDetails()
+        })
+        .catch((error) => {
+          console.error(error);
+          });
+        
+  }
+
   loadingModule = () => (
     <div style={{height:"90vh",width:"100%",display:"flex",justifyContent:"center",alignItems:"center"}} className="loading-container">
       <Audio height="80" width="80" radius="9" color="#6EB8EF" ariaLabel="loading" />
@@ -121,6 +134,7 @@ class Home extends Component {
 
   blogShower = () => {
     const { blogsData } = this.state;
+    const retrive = Cookies.get("id");
     console.log(blogsData)
     return (
        <ul className="blogsUl">
@@ -131,7 +145,10 @@ class Home extends Component {
             <div className="blogsPara">
             <p>{eachBlog.description.slice(0, 70)}...</p>
             </div>
+            <div style={{display:"flex",justifyContent:"space-around"}}>
             <Link className="blogsViewButton" to={`blog/${eachBlog._id}`} ><button className="blogsViewButton" >View</button></Link>
+            {retrive==eachBlog.createdBy?(<button className="blogsViewButton" onClick={() => this.deletingBlog(eachBlog._id)}>Delete</button>):null}
+            </div>
         </li>
       )}
       

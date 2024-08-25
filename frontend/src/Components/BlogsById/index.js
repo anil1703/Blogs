@@ -1,5 +1,7 @@
+import "./index.css"
 import axios from "axios";
 import { Component } from "react";
+import Markdown from 'react-markdown'
 
 const renderStatus = {
     initial: "INITIAL",
@@ -10,7 +12,7 @@ const renderStatus = {
   };
 
 class BlogsById extends Component{
-    state = {renderingStatus:renderStatus.initial,blog:[]}
+    state = {renderingStatus:renderStatus.initial,blog:{}}
 
     componentDidMount(){
         this.getBlog()
@@ -21,8 +23,9 @@ class BlogsById extends Component{
         const {params} = match;
         const {id} = params;
 
-        axios.get(`http://localhost:5000/blog/{id}`)
+        axios.get(`http://localhost:5000/blog/${id}`)
         .then(response => {
+            console.log(response)
             this.setState({renderingStatus:renderStatus.success, blog: response.data})
             })
             .catch(error => {
@@ -32,8 +35,13 @@ class BlogsById extends Component{
     }
 
     render(){
+        const {blog} = this.state
+
         return(
-            <h1>hi</h1>)
+                <div className="blogsssDIv">
+                <h1>{blog.title}</h1> <span style={{color:"gray"}}>{blog.createdAt}</span>
+                <Markdown>{blog.description}</Markdown>
+                </div> )
     }
 }
 

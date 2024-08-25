@@ -1,0 +1,12 @@
+.blogsssDIv{
+    width: 80vh;
+    margin: auto;
+    padding: 12px;
+}
+
+@media (max-width:768px) {
+    .blogsssDIv{
+        width: 100%;
+        padding: 10px;
+    }
+}
