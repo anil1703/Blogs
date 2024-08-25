@@ -1,4 +1,4 @@
-import {creatingBlog,retrivingAllBlogsFromDatabase,retrivingBlogsByInterstsFromDatabase,retrivingBlogByIdFromDatabase} from "../services/blogServices.js"
+import {creatingBlog,retrivingAllBlogsFromDatabase,retrivingBlogsByInterstsFromDatabase,retrivingBlogByIdFromDatabase,deleteBlogFromDatabase} from "../services/blogServices.js"
 
 
 export async function creatingBlogHandler (req,res){
@@ -46,4 +46,17 @@ export async function retrivingBlogById(req,res){
         catch(error){
             res.status(500).send("There is a problem while fetching the blog");
             }
+}
+
+export async function  deleteBlog(req,res) {
+    const blogId = req.params.id;
+    try{
+        const deleting = await deleteBlogFromDatabase(blogId);
+        res.status(200).send("Blog Deleted Successfully");
+        }
+        catch(error){
+            res.status(500).send("There is a problem while deleting the blog");
+            }
+
+    
 }

@@ -22,6 +22,12 @@ export async function retrivingBlogsByInterstsFromDatabase(intrests){
 
 export async function retrivingBlogByIdFromDatabase(blogId) {
     console.log("hii",blogId)
-    const response = await blogs.find({ _id: blogId })
+    const response = await blogs.findOne({ _id: blogId })
     return response
+}
+
+export async function deleteBlogFromDatabase(BlogId) {
+    const response = await blogs.deleteOne({ _id: BlogId })
+    return response
+    
 }
