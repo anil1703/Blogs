@@ -147,7 +147,7 @@ class Home extends Component {
             </div>
             <div style={{display:"flex",justifyContent:"space-around"}}>
             <Link className="blogsViewButton" to={`blog/${eachBlog._id}`} ><button className="blogsViewButton" >View</button></Link>
-            {retrive==+eachBlog.createdBy?(<button className="blogsViewButton" onClick={() => this.deletingBlog(eachBlog._id)}>Delete</button>):null}
+            {retrive===eachBlog.createdBy?(<button className="blogsViewButton" onClick={() => this.deletingBlog(eachBlog._id)}>Delete</button>):null}
             </div>
         </li>
       )}
