@@ -31,7 +31,6 @@ function Header(props) {
     Cookies.remove("id");
     Cookies.remove("isAllBlogs");
     const { history } = props;
-    history.replace('/login');
     window.location.reload();
   };
 
